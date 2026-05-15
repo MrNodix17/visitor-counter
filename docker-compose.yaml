@@ -31,9 +31,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.visitor-counter.rule=Host(`${APP_DOMAIN:-visitor.localhost}`)"
-      - "traefik.http.routers.visitor-counter.entrypoints=websecure"
       - "traefik.http.routers.app.rule=Host(`licznik.amniscode.dev`)"
-      - "traefik.http.routers.visitor-counter.tls.certresolver=letsencrypt"
       - "traefik.http.services.visitor-counter.loadbalancer.server.port=7123"
 
 volumes:
