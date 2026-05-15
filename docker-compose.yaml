@@ -22,9 +22,9 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-visitordb}
-      PORT: 8000
+      PORT: 7123
     ports:
-      - "7123:8000"
+      - "7123:7123"
     depends_on:
       db:
         condition: service_healthy
@@ -32,8 +32,9 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.visitor-counter.rule=Host(`${APP_DOMAIN:-visitor.localhost}`)"
       - "traefik.http.routers.visitor-counter.entrypoints=websecure"
+      - "traefik.http.routers.app.rule=Host(`itciekawostki2.amniscode.dev`)"
       - "traefik.http.routers.visitor-counter.tls.certresolver=letsencrypt"
-      - "traefik.http.services.visitor-counter.loadbalancer.server.port=8000"
+      - "traefik.http.services.visitor-counter.loadbalancer.server.port=7123"
 
 volumes:
   pgdata:
