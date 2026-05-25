@@ -23,7 +23,7 @@ services:
       DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-visitordb}
       PORT: 8000
     ports:
-      - "7123:8000"
+      - "7124:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -31,7 +31,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.visitor-counter.rule=Host(`licznik.amniscode.dev`)"
       - "traefik.http.routers.visitor-counter.entrypoints=web"
-      - "traefik.http.services.visitor-counter.loadbalancer.server.port=7123"
+      - "traefik.http.services.visitor-counter.loadbalancer.server.port=7124"
 
 volumes:
   pgdata:
