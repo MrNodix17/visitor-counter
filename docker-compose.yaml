@@ -1,5 +1,4 @@
 version: "3.9"
-
 services:
   db:
     image: postgres:16-alpine
@@ -17,7 +16,7 @@ services:
       retries: 5
       start_period: 10s
 
-app:
+  app:
     build: .
     restart: unless-stopped
     environment:
@@ -30,9 +29,9 @@ app:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.visitor-counter.rule=Host(`${APP_DOMAIN:-licznik.amniscode.dev}`)"
-      # Ruch przychodzi po HTTP (port 80) — bez TLS po stronie Traefik
+      - "traefik.http.routers.visitor-counter.rule=Host(`licznik.amniscode.dev`)"
       - "traefik.http.routers.visitor-counter.entrypoints=web"
       - "traefik.http.services.visitor-counter.loadbalancer.server.port=7123"
+
 volumes:
   pgdata:
