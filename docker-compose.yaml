@@ -29,14 +29,10 @@ app:
       db:
         condition: service_healthy
     labels:
-      # Włącz rejestrację w Consul przez watcher → Traefik opublikuje pod domeną
       - "traefik.enable=true"
-      # Router — nazwa spójna we wszystkich labelach
       - "traefik.http.routers.visitor-counter.rule=Host(`${APP_DOMAIN:-licznik.amniscode.dev}`)"
-      - "traefik.http.routers.visitor-counter.entrypoints=websecure"
-      - "traefik.http.routers.visitor-counter.tls=true"
-      - "traefik.http.routers.visitor-counter.tls.certresolver=letsencrypt"
-      # Port HOSTA — Traefik łączy się z workerem przez 10.220.14.15:7123
+      # Ruch przychodzi po HTTP (port 80) — bez TLS po stronie Traefik
+      - "traefik.http.routers.visitor-counter.entrypoints=web"
       - "traefik.http.services.visitor-counter.loadbalancer.server.port=7123"
 volumes:
   pgdata:
