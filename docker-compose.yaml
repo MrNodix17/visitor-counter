@@ -29,7 +29,7 @@ services:
         condition: service_healthy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.visitor-counter.rule=Host(`licznik2.amniscode.dev`)"
+      - "traefik.http.routers.visitor-counter.rule=Host(`licznik2.holding1.app`)"
       - "traefik.http.routers.visitor-counter.entrypoints=web"
       - "traefik.http.services.visitor-counter.loadbalancer.server.port=8000"
 
